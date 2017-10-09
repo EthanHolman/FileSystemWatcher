@@ -2,7 +2,7 @@
 
 namespace Assignment2.Models {
     public class FileEvent {
-        public FileEvent(string fileName, string filePath, FileEvent eventType, DateTime timestamp, ObjectType objType) {
+        public FileEvent(string fileName, string filePath, FileEvents eventType, DateTime timestamp, ObjectType objType) {
             this.FileName = fileName;
             this.FilePath = filePath;
             this.EventType = eventType;
@@ -11,8 +11,11 @@ namespace Assignment2.Models {
         }
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public FileEvent EventType { get; set; }
+        public FileEvents EventType { get; set; }
         public DateTime Timestamp { get; set; }
         public ObjectType ObjType { get; set; }
+        public override string ToString() {
+            return FileName + "\t" + FilePath + "\t" + EventType + "\t" + Timestamp;
+        }
     }
 }

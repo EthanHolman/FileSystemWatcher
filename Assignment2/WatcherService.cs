@@ -14,14 +14,14 @@ namespace Assignment2 {
         private FileSystemWatcher _watcher;
         private string _path;
         private ILoggerService _logger;
-        private List<string> _events;
-        public List<string> Events { get { return this._events; } }
+        private List<FileEvent> _events;
+        public List<FileEvent> Events { get { return this._events; } }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService(string watchPath, ILoggerService logger) {
             this._path = watchPath;
             this._logger = logger;
-            this._events = new List<string>();
+            this._events = new List<FileEvent>();
 
             // Create a new FileSystemWatcher and set its properties.
             _watcher = new FileSystemWatcher();
@@ -40,10 +40,14 @@ namespace Assignment2 {
             _watcher.Filter = "*.txt";
 
             // Add event handlers.
-            _watcher.Changed += new FileSystemEventHandler(OnModified);
-            _watcher.Created += new FileSystemEventHandler(OnModified);
-            _watcher.Deleted += new FileSystemEventHandler(OnModified);
-            _watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            _watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileModified, ObjectType.File));
+            _watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileCreated, ObjectType.File));
+            _watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileDeleted, ObjectType.File));
+            _watcher.Renamed += new RenamedEventHandler((object src, RenamedEventArgs e) => {
+                FileEvent f = new FileEvent(e.Name, e.FullPath, FileEvents.FileRenamed, DateTime.Now, ObjectType.File);
+                _logger.LogFileEvent(f);
+                _events.Add(f);
+            });
         }
 
         public void Start() {
@@ -54,15 +58,16 @@ namespace Assignment2 {
             _watcher.EnableRaisingEvents = false;
         }
 
-        private void OnModified(object source, FileSystemEventArgs e) {
-            FileEvent f = new FileEvent()
-            _logger.LogFileEvent(FileEvents.FileModified, ObjectType.File, "File: " + e.FullPath + " " + e.ChangeType);
-            _events.Add("File: " + e.FullPath + " " + e.ChangeType);
+        private void LogEvent(object src, FileSystemEventArgs e, FileEvents fe, ObjectType ot) {
+            var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, ot);
+            _logger.LogFileEvent(fileEvent);
+            _events.Add(fileEvent);
         }
 
-        private void OnRenamed(object source, RenamedEventArgs e) {
-            _logger.LogFileEvent(FileEvents.FileRenamed, ObjectType.File, "File: " + e.OldFullPath + " renamed to " + e.FullPath);
-            _events.Add("File: " + e.OldFullPath + " renamed to " + e.FullPath);
+        private void OnModified(object source, FileSystemEventArgs e) {
+            FileEvent f = new FileEvent(e.Name, e.FullPath, FileEvents.FileModified, DateTime.Now, ObjectType.File);
+            _logger.LogFileEvent(f);
+            _events.Add(f);
         }
     }
 

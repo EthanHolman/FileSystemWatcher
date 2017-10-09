@@ -11,8 +11,8 @@ namespace Assignment2 {
         public FileLoggerService(string path) {
             this.Path = path;
         }
-        public void LogFileEvent(FileEvents eventType, ObjectType objectType, string logText) {
-            Console.Write(logText);
+        public void LogFileEvent(FileEvent f) {
+            Console.Write(f);
         }
     }
 }

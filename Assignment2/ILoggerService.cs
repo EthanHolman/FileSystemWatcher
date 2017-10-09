@@ -7,6 +7,6 @@ using Assignment2.Models;
 
 namespace Assignment2 {
     public interface ILoggerService {
-        void LogFileEvent(FileEvents eventType, ObjectType objectType, string logText);
+        void LogFileEvent(FileEvent f);
     }
 }
