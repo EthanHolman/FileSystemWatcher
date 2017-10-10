@@ -16,6 +16,8 @@ namespace Assignment2 {
         private ILoggerService _logger;
         private List<FileEvent> _events;
         public List<FileEvent> Events { get { return this._events; } }
+        public delegate void FileEventAction(FileEvent f);
+        public event FileEventAction OnFilesystemChange;
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService(string watchPath, ILoggerService logger) {
@@ -50,6 +52,10 @@ namespace Assignment2 {
             });
         }
 
+        public void addChangedHandler(FileSystemEventHandler e) {
+            _watcher.Changed += e;
+        }
+
         public void Start() {
             _watcher.EnableRaisingEvents = true;
         }
@@ -62,13 +68,20 @@ namespace Assignment2 {
             var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, ot);
             _logger.LogFileEvent(fileEvent);
             _events.Add(fileEvent);
+            this.EmitEvent(fileEvent);
+
         }
 
-        private void OnModified(object source, FileSystemEventArgs e) {
-            FileEvent f = new FileEvent(e.Name, e.FullPath, FileEvents.FileModified, DateTime.Now, ObjectType.File);
-            _logger.LogFileEvent(f);
-            _events.Add(f);
+        public void AddChangedEventHandler(FileEventAction e) {
+            this.OnFilesystemChange += e;
         }
+
+        private void EmitEvent(FileEvent f) {
+            if(this.OnFilesystemChange != null) {
+                OnFilesystemChange(f);
+            }
+        }
+
     }
 
 }
