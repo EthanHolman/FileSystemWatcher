@@ -1,5 +1,5 @@
 ﻿namespace Assignment2 {
-    partial class Form1 {
+    partial class MainAppWindow {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -25,13 +25,13 @@
         private void InitializeComponent() {
             this.startWatcher = new System.Windows.Forms.Button();
             this.stopWatcher = new System.Windows.Forms.Button();
-            this.logFilePath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Filename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EventType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnOpenSettings = new System.Windows.Forms.Button();
+            this.btnShowAbout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startWatcher
@@ -54,22 +54,6 @@
             this.stopWatcher.Text = "Stop";
             this.stopWatcher.UseVisualStyleBackColor = true;
             this.stopWatcher.Click += new System.EventHandler(this.stopWatcher_Click);
-            // 
-            // logFilePath
-            // 
-            this.logFilePath.Location = new System.Drawing.Point(263, 325);
-            this.logFilePath.Name = "logFilePath";
-            this.logFilePath.Size = new System.Drawing.Size(256, 20);
-            this.logFilePath.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(188, 328);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Log File Path";
             // 
             // listView1
             // 
@@ -105,33 +89,52 @@
             this.EventType.Text = "Event Type";
             this.EventType.Width = 103;
             // 
-            // Form1
+            // btnOpenSettings
+            // 
+            this.btnOpenSettings.Location = new System.Drawing.Point(364, 322);
+            this.btnOpenSettings.Name = "btnOpenSettings";
+            this.btnOpenSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenSettings.TabIndex = 6;
+            this.btnOpenSettings.Text = "Settings";
+            this.btnOpenSettings.UseVisualStyleBackColor = true;
+            this.btnOpenSettings.Click += new System.EventHandler(this.btnOpenSettings_Click);
+            // 
+            // btnShowAbout
+            // 
+            this.btnShowAbout.Location = new System.Drawing.Point(445, 322);
+            this.btnShowAbout.Name = "btnShowAbout";
+            this.btnShowAbout.Size = new System.Drawing.Size(75, 23);
+            this.btnShowAbout.TabIndex = 7;
+            this.btnShowAbout.Text = "About";
+            this.btnShowAbout.UseVisualStyleBackColor = true;
+            this.btnShowAbout.Click += new System.EventHandler(this.btnShowAbout_Click);
+            // 
+            // MainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 357);
+            this.Controls.Add(this.btnShowAbout);
+            this.Controls.Add(this.btnOpenSettings);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.logFilePath);
             this.Controls.Add(this.stopWatcher);
             this.Controls.Add(this.startWatcher);
-            this.Name = "Form1";
+            this.Name = "MainAppWindow";
             this.Text = "File System Watcher";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button startWatcher;
         private System.Windows.Forms.Button stopWatcher;
-        private System.Windows.Forms.TextBox logFilePath;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader Time;
         private System.Windows.Forms.ColumnHeader Filename;
         private System.Windows.Forms.ColumnHeader Path;
         private System.Windows.Forms.ColumnHeader EventType;
+        private System.Windows.Forms.Button btnOpenSettings;
+        private System.Windows.Forms.Button btnShowAbout;
     }
 }
 

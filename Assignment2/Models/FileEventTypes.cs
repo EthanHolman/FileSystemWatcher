@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment2.Models {
-    public enum FileEvents {
+    public enum FileEventTypes {
         FileDeleted,
         FileModified,
         FileCreated,

@@ -9,67 +9,64 @@ using System.Security.Permissions;
 using Assignment2.Models;
 
 namespace Assignment2 {
+
+    public delegate void FileEventAction(FileEvent f);
+
     public class WatcherService {
 
-        private FileSystemWatcher _watcher;
-        private string _path;
-        private ILoggerService _logger;
-        private List<FileEvent> _events;
-        public List<FileEvent> Events { get { return this._events; } }
-        public delegate void FileEventAction(FileEvent f);
+        private FileSystemWatcher watcher;
+        private ILoggerService logger;
         public event FileEventAction OnFilesystemChange;
 
+        public bool IsRunning { get; set; }
+        public bool InitCompleted { get; set; }
+        public string MonitorPath { get; set; }
+        public string LogPath { get; set; }
+
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public WatcherService(string watchPath, ILoggerService logger) {
-            this._path = watchPath;
-            this._logger = logger;
-            this._events = new List<FileEvent>();
+        public WatcherService() {
+            this.IsRunning = false;
+            this.InitCompleted = false;
+            this.LogPath = @"C:\Users\Ethan Holman\appLog.log";
+            this.MonitorPath = @"C:\Users\Ethan Holman\temp";
+        }
 
-            // Create a new FileSystemWatcher and set its properties.
-            _watcher = new FileSystemWatcher();
-            _watcher.Path = this._path;
+        public void Init() {
 
-            /* Watch for changes in LastAccess and LastWrite times, and
-               the renaming of files or directories. */
-            _watcher.NotifyFilter = NotifyFilters.LastAccess |
+            // Create a new FileSystemWatcher and set its properties
+            watcher = new FileSystemWatcher();
+            watcher.Path = MonitorPath;
+            watcher.IncludeSubdirectories = true;
+            watcher.Filter = "*.txt";
+            watcher.NotifyFilter = NotifyFilters.LastAccess |
                                     NotifyFilters.LastWrite |
                                     NotifyFilters.FileName |
                                     NotifyFilters.DirectoryName;
 
-            _watcher.IncludeSubdirectories = true;
+            watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileModified, ObjectTypes.File));
+            watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileCreated, ObjectTypes.File));
+            watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileDeleted, ObjectTypes.File));
+            watcher.Renamed += new RenamedEventHandler((object src, RenamedEventArgs e) => LogEvent(e, FileEventTypes.FileRenamed, ObjectTypes.File));
 
-            // Only watch text files.
-            _watcher.Filter = "*.txt";
+            // Init a logging service
+            this.logger = new FileLoggerService(LogPath);
 
-            // Add event handlers.
-            _watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileModified, ObjectType.File));
-            _watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileCreated, ObjectType.File));
-            _watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => this.LogEvent(s, e, FileEvents.FileDeleted, ObjectType.File));
-            _watcher.Renamed += new RenamedEventHandler((object src, RenamedEventArgs e) => {
-                FileEvent f = new FileEvent(e.Name, e.FullPath, FileEvents.FileRenamed, DateTime.Now, ObjectType.File);
-                _logger.LogFileEvent(f);
-                _events.Add(f);
-            });
-        }
-
-        public void addChangedHandler(FileSystemEventHandler e) {
-            _watcher.Changed += e;
+            InitCompleted = true;
         }
 
         public void Start() {
-            _watcher.EnableRaisingEvents = true;
+            if(!InitCompleted) this.Init();
+            watcher.EnableRaisingEvents = true;
         }
 
         public void Stop() {
-            _watcher.EnableRaisingEvents = false;
+            watcher.EnableRaisingEvents = false;
         }
 
-        private void LogEvent(object src, FileSystemEventArgs e, FileEvents fe, ObjectType ot) {
+        private void LogEvent(FileSystemEventArgs e, FileEventTypes fe, ObjectTypes ot) {
             var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, ot);
-            _logger.LogFileEvent(fileEvent);
-            _events.Add(fileEvent);
+            logger.LogFileEvent(fileEvent);
             this.EmitEvent(fileEvent);
-
         }
 
         public void AddChangedEventHandler(FileEventAction e) {
@@ -83,5 +80,4 @@ namespace Assignment2 {
         }
 
     }
-
 }

@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment2 {
-    public partial class Form1 : Form {
-        private WatcherService w;
-        public Form1() {
+    public partial class MainAppWindow : Form {
+
+        private WatcherService app;
+        public delegate void FSChange(FileEvent f);
+
+        public MainAppWindow() {
             InitializeComponent();
-            this.w = new WatcherService(@"C:\Temp\", new FileLoggerService(@"C:\appLog.log"));
-
-            //this.w.OnFilesystemChange += WatcherService_OnFilesystemChange;
-            this.w.AddChangedEventHandler(WatcherService_OnFilesystemChange);
+            app = new WatcherService();
         }
-
-        delegate void fschange(FileEvent f);
+        
         private void WatcherService_OnFilesystemChange(FileEvent f) {
-            if(listView1.InvokeRequired) { // Cross-thread safety
-                fschange fs = new fschange(WatcherService_OnFilesystemChange);
+            // Cross-thread safety
+            if(listView1.InvokeRequired) {
+                FSChange fs = new FSChange(WatcherService_OnFilesystemChange);
                 this.Invoke(fs, new object[] { f });
             } else {
                 ListViewItem temp = new ListViewItem(f.Timestamp.ToString());
@@ -35,14 +35,24 @@ namespace Assignment2 {
         }
 
         private void startWatcher_Click(object sender, EventArgs e) {
-            this.w.Start();
+            app.Start();
+            app.AddChangedEventHandler(WatcherService_OnFilesystemChange);
             startWatcher.Enabled = false;
-            logFilePath.Enabled = false;
             stopWatcher.Enabled = true;
         }
 
         private void stopWatcher_Click(object sender, EventArgs e) {
-            this.w.Stop();
+            app.Stop();
+            startWatcher.Enabled = true;
+            stopWatcher.Enabled = false;
+        }
+
+        private void btnOpenSettings_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnShowAbout_Click(object sender, EventArgs e) {
+
         }
     }
 }

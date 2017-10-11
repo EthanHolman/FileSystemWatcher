@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Assignment2.Models {
-    public enum ObjectType {
+    public enum ObjectTypes {
         Directory,
         File
     }
