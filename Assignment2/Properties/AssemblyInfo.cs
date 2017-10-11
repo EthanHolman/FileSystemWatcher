@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Assignment2")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("File System Watcher")]
+[assembly: AssemblyDescription("A simple GUI application to monitor file system events, and optionally log to a file.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Assignment2")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("File System Watcher")]
+[assembly: AssemblyCopyright("Created by: Ethan Holman")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

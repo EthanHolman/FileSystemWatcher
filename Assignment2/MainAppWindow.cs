@@ -18,6 +18,9 @@ namespace Assignment2 {
         public MainAppWindow() {
             InitializeComponent();
             app = new WatcherService();
+
+            // Show the settings modal on launch so the user can pick their options
+            new SettingsModal(app).ShowDialog();
         }
         
         private void WatcherService_OnFilesystemChange(FileEvent f) {
@@ -48,11 +51,11 @@ namespace Assignment2 {
         }
 
         private void btnOpenSettings_Click(object sender, EventArgs e) {
-
+            new SettingsModal(app).ShowDialog();
         }
 
         private void btnShowAbout_Click(object sender, EventArgs e) {
-
+            new AboutModal().ShowDialog();
         }
     }
 }
