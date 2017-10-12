@@ -18,28 +18,26 @@ namespace Assignment2 {
         public MainAppWindow() {
             InitializeComponent();
             app = new WatcherService();
-
-            // Show the settings modal on launch so the user can pick their options
-            new SettingsModal(app).ShowDialog();
+            app.AddChangedEventHandler(WatcherService_OnFilesystemChange);
         }
         
         private void WatcherService_OnFilesystemChange(FileEvent f) {
             // Cross-thread safety
-            if(listView1.InvokeRequired) {
+            if(FileEventsListView.InvokeRequired) {
                 FSChange fs = new FSChange(WatcherService_OnFilesystemChange);
                 this.Invoke(fs, new object[] { f });
             } else {
                 ListViewItem temp = new ListViewItem(f.Timestamp.ToString());
                 temp.SubItems.Add(f.FileName);
-                temp.SubItems.Add(f.FilePath);
                 temp.SubItems.Add(f.EventType.ToString());
-                listView1.Items.Add(temp);
+                temp.SubItems.Add(f.ObjType.ToString());
+                temp.SubItems.Add(f.FilePath);
+                FileEventsListView.Items.Add(temp);
             }
         }
 
         private void startWatcher_Click(object sender, EventArgs e) {
             app.Start();
-            app.AddChangedEventHandler(WatcherService_OnFilesystemChange);
             startWatcher.Enabled = false;
             stopWatcher.Enabled = true;
         }
@@ -56,6 +54,11 @@ namespace Assignment2 {
 
         private void btnShowAbout_Click(object sender, EventArgs e) {
             new AboutModal().ShowDialog();
+        }
+
+        private void MainAppWindow_Load(object sender, EventArgs e) {
+            // Show the settings modal on launch so the user can pick their options
+            new SettingsModal(app).ShowDialog();
         }
     }
 }

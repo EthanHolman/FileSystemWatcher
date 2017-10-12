@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Models {
     public enum FileEventTypes {
-        FileDeleted,
-        FileModified,
-        FileCreated,
-        FileRenamed,
+        Deleted,
+        Modified,
+        Created,
+        Renamed
     }
 }

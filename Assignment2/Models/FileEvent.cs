@@ -15,7 +15,7 @@ namespace Assignment2.Models {
         public DateTime Timestamp { get; set; }
         public ObjectTypes ObjType { get; set; }
         public override string ToString() {
-            return FileName + "\t" + FilePath + "\t" + EventType + "\t" + Timestamp;
+            return FileName + ", " + FilePath + ", " + EventType + ", " + Timestamp;
         }
     }
 }

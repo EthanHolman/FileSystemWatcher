@@ -39,10 +39,12 @@ namespace Assignment2 {
 
         private void logFileName_TextChanged(object sender, EventArgs e) {
             this.app.LogFileName = logFileName.Text;
+            this.app.InitCompleted = false;
         }
 
         private void includeSubdirs_CheckedChanged(object sender, EventArgs e) {
             this.app.MonitorSubDirectories = includeSubdirs.Checked;
+            this.app.InitCompleted = false;
         }
 
         private void btnChooseLogPath_Click(object sender, EventArgs e) {

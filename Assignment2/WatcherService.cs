@@ -22,13 +22,19 @@ namespace Assignment2 {
         public bool InitCompleted { get; set; }
         public string MonitorPath { get; set; }
         public string LogPath { get; set; }
+        public string LogFileName { get; set; }
+        public bool MonitorSubDirectories { get; set; }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService() {
             this.IsRunning = false;
             this.InitCompleted = false;
-            this.LogPath = @"C:\Users\Ethan Holman\appLog.log";
-            this.MonitorPath = @"C:\Users\Ethan Holman\temp";
+
+            // Set up some default paths and names
+            this.LogPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            this.MonitorPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            this.LogFileName = "fswatcher.log";
+            this.MonitorSubDirectories = true;
         }
 
         public void Init() {
@@ -36,20 +42,20 @@ namespace Assignment2 {
             // Create a new FileSystemWatcher and set its properties
             watcher = new FileSystemWatcher();
             watcher.Path = MonitorPath;
-            watcher.IncludeSubdirectories = true;
-            watcher.Filter = "*.txt";
+            watcher.IncludeSubdirectories = this.MonitorSubDirectories;
+            watcher.Filter = "*.*";
             watcher.NotifyFilter = NotifyFilters.LastAccess |
-                                    NotifyFilters.LastWrite |
-                                    NotifyFilters.FileName |
-                                    NotifyFilters.DirectoryName;
+                                   NotifyFilters.LastWrite |
+                                   NotifyFilters.FileName |
+                                   NotifyFilters.DirectoryName;
 
-            watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileModified, ObjectTypes.File));
-            watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileCreated, ObjectTypes.File));
-            watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.FileDeleted, ObjectTypes.File));
-            watcher.Renamed += new RenamedEventHandler((object src, RenamedEventArgs e) => LogEvent(e, FileEventTypes.FileRenamed, ObjectTypes.File));
+            watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Modified));
+            watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Created));
+            watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Deleted));
+            watcher.Renamed += new RenamedEventHandler((object s, RenamedEventArgs e) => LogEvent(e, FileEventTypes.Renamed));
 
-            // Init a logging service
-            this.logger = new FileLoggerService(LogPath);
+            // Init a logging service (this could be changed out for SQL)
+            this.logger = new FileLoggerService(LogPath, LogFileName);
 
             InitCompleted = true;
         }
@@ -63,8 +69,17 @@ namespace Assignment2 {
             watcher.EnableRaisingEvents = false;
         }
 
-        private void LogEvent(FileSystemEventArgs e, FileEventTypes fe, ObjectTypes ot) {
-            var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, ot);
+        private void LogEvent(FileSystemEventArgs e, FileEventTypes fe) {
+            // Skip logging if the event involves the file we're logging TO
+            if(e.Name.Split('\\')[e.Name.Split('\\').Length - 1] == LogFileName) return; 
+
+            ObjectTypes objectType;
+            try {
+                 objectType = (File.GetAttributes(e.FullPath)).HasFlag(FileAttributes.Directory) ? ObjectTypes.Directory : ObjectTypes.File;
+            } catch(Exception ex) {
+                objectType = ObjectTypes.File;
+            }
+            var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, objectType);
             logger.LogFileEvent(fileEvent);
             this.EmitEvent(fileEvent);
         }
