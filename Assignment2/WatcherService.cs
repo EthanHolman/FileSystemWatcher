@@ -70,8 +70,9 @@ namespace Assignment2 {
         }
 
         private void LogEvent(FileSystemEventArgs e, FileEventTypes fe) {
+            string name = e.Name.Split('\\')[e.Name.Split('\\').Length - 1];
             // Skip logging if the event involves the file we're logging TO
-            if(e.Name.Split('\\')[e.Name.Split('\\').Length - 1] == LogFileName) return; 
+            if(name == LogFileName) return; 
 
             ObjectTypes objectType;
             try {
@@ -79,7 +80,7 @@ namespace Assignment2 {
             } catch(Exception ex) {
                 objectType = ObjectTypes.File;
             }
-            var fileEvent = new FileEvent(e.Name, e.FullPath, fe, DateTime.Now, objectType);
+            var fileEvent = new FileEvent(name, e.FullPath, fe, DateTime.Now, objectType);
             logger.LogFileEvent(fileEvent);
             this.EmitEvent(fileEvent);
         }
