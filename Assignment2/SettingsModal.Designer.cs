@@ -155,6 +155,9 @@
             this.Controls.Add(this.btnChooseMonitorDir);
             this.Controls.Add(this.monitoringDir);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsModal";
             this.Text = "Settings";
             this.ResumeLayout(false);

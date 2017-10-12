@@ -37,6 +37,7 @@
             // 
             // startWatcher
             // 
+            this.startWatcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.startWatcher.Location = new System.Drawing.Point(12, 322);
             this.startWatcher.Name = "startWatcher";
             this.startWatcher.Size = new System.Drawing.Size(75, 23);
@@ -47,6 +48,7 @@
             // 
             // stopWatcher
             // 
+            this.stopWatcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.stopWatcher.Enabled = false;
             this.stopWatcher.Location = new System.Drawing.Point(93, 322);
             this.stopWatcher.Name = "stopWatcher";
@@ -58,6 +60,7 @@
             // 
             // btnOpenSettings
             // 
+            this.btnOpenSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenSettings.Location = new System.Drawing.Point(501, 322);
             this.btnOpenSettings.Name = "btnOpenSettings";
             this.btnOpenSettings.Size = new System.Drawing.Size(75, 23);
@@ -68,6 +71,7 @@
             // 
             // btnShowAbout
             // 
+            this.btnShowAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShowAbout.Location = new System.Drawing.Point(582, 322);
             this.btnShowAbout.Name = "btnShowAbout";
             this.btnShowAbout.Size = new System.Drawing.Size(75, 23);
@@ -78,6 +82,9 @@
             // 
             // FileEventsListView
             // 
+            this.FileEventsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FileEventsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Timestamp,
             this.ItemName,
