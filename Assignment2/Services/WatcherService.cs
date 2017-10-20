@@ -8,7 +8,7 @@ using System.IO;
 using System.Security.Permissions;
 using Assignment2.Models;
 
-namespace Assignment2 {
+namespace Assignment2.Services {
 
     public delegate void FileEventAction(FileEvent f);
 

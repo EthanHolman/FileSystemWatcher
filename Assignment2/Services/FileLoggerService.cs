@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Assignment2.Models;
 using System.IO;
 
-namespace Assignment2 {
+namespace Assignment2.Services {
     public class FileLoggerService : ILoggerService {
 
         private StreamWriter fout;
@@ -26,6 +23,14 @@ namespace Assignment2 {
             Console.WriteLine(f.ToString());
             fout.WriteLine(f.ToString());
             fout.Flush();
+        }
+
+        public FileEvent[] GetFileEvents(DateTime start, DateTime end, string[] extensions) {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteFileEvent(FileEvent f) {
+            throw new NotImplementedException();
         }
     }
 }
