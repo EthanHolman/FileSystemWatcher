@@ -1,4 +1,5 @@
 ﻿using Assignment2.Models;
+using Assignment2.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,12 +53,15 @@ namespace Assignment2 {
             new SettingsModal(app).ShowDialog();
         }
 
-        private void btnShowAbout_Click(object sender, EventArgs e) {
+        private void MainAppWindow_Load(object sender, EventArgs e) {
+            new SettingsModal(app).ShowDialog();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             new AboutModal().ShowDialog();
         }
 
-        private void MainAppWindow_Load(object sender, EventArgs e) {
-            // Show the settings modal on launch so the user can pick their options
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
             new SettingsModal(app).ShowDialog();
         }
     }
