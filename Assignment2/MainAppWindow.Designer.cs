@@ -23,9 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.startWatcher = new System.Windows.Forms.Button();
-            this.stopWatcher = new System.Windows.Forms.Button();
-            this.btnOpenSettings = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAppWindow));
             this.FileEventsListView = new System.Windows.Forms.ListView();
             this.Timestamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,42 +41,14 @@
             this.saveCurrentDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolstripStartBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolstripStopBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolstripPrefBtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // startWatcher
-            // 
-            this.startWatcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.startWatcher.Location = new System.Drawing.Point(12, 369);
-            this.startWatcher.Name = "startWatcher";
-            this.startWatcher.Size = new System.Drawing.Size(75, 23);
-            this.startWatcher.TabIndex = 1;
-            this.startWatcher.Text = "Start";
-            this.startWatcher.UseVisualStyleBackColor = true;
-            this.startWatcher.Click += new System.EventHandler(this.startWatcher_Click);
-            // 
-            // stopWatcher
-            // 
-            this.stopWatcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.stopWatcher.Enabled = false;
-            this.stopWatcher.Location = new System.Drawing.Point(93, 369);
-            this.stopWatcher.Name = "stopWatcher";
-            this.stopWatcher.Size = new System.Drawing.Size(75, 23);
-            this.stopWatcher.TabIndex = 2;
-            this.stopWatcher.Text = "Stop";
-            this.stopWatcher.UseVisualStyleBackColor = true;
-            this.stopWatcher.Click += new System.EventHandler(this.stopWatcher_Click);
-            // 
-            // btnOpenSettings
-            // 
-            this.btnOpenSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenSettings.Location = new System.Drawing.Point(582, 369);
-            this.btnOpenSettings.Name = "btnOpenSettings";
-            this.btnOpenSettings.Size = new System.Drawing.Size(75, 23);
-            this.btnOpenSettings.TabIndex = 6;
-            this.btnOpenSettings.Text = "Preferences";
-            this.btnOpenSettings.UseVisualStyleBackColor = true;
-            this.btnOpenSettings.Click += new System.EventHandler(this.btnOpenSettings_Click);
             // 
             // FileEventsListView
             // 
@@ -91,9 +61,9 @@
             this.EventType,
             this.ObjectType,
             this.Path});
-            this.FileEventsListView.Location = new System.Drawing.Point(12, 27);
+            this.FileEventsListView.Location = new System.Drawing.Point(12, 82);
             this.FileEventsListView.Name = "FileEventsListView";
-            this.FileEventsListView.Size = new System.Drawing.Size(645, 336);
+            this.FileEventsListView.Size = new System.Drawing.Size(645, 303);
             this.FileEventsListView.TabIndex = 8;
             this.FileEventsListView.UseCompatibleStateImageBehavior = false;
             this.FileEventsListView.View = System.Windows.Forms.View.Details;
@@ -147,7 +117,7 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -191,6 +161,7 @@
             this.saveCurrentDataToolStripMenuItem.Name = "saveCurrentDataToolStripMenuItem";
             this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.saveCurrentDataToolStripMenuItem.Text = "Save Current Data";
+            this.saveCurrentDataToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentDataToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -203,35 +174,86 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(252, 37);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "File System Watcher";
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolstripStartBtn,
+            this.toolstripStopBtn,
+            this.toolstripPrefBtn});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 398);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStrip1.Size = new System.Drawing.Size(669, 34);
+            this.toolStrip1.TabIndex = 11;
+            this.toolStrip1.Text = "mainToolStrip";
+            // 
+            // toolstripStartBtn
+            // 
+            this.toolstripStartBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolstripStartBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripStartBtn.Image")));
+            this.toolstripStartBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolstripStartBtn.Name = "toolstripStartBtn";
+            this.toolstripStartBtn.Size = new System.Drawing.Size(55, 21);
+            this.toolstripStartBtn.Text = "Start";
+            this.toolstripStartBtn.Click += new System.EventHandler(this.toolstripStartBtn_Click);
+            // 
+            // toolstripStopBtn
+            // 
+            this.toolstripStopBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolstripStopBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripStopBtn.Image")));
+            this.toolstripStopBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolstripStopBtn.Name = "toolstripStopBtn";
+            this.toolstripStopBtn.Size = new System.Drawing.Size(55, 21);
+            this.toolstripStopBtn.Text = "Stop";
+            this.toolstripStopBtn.Click += new System.EventHandler(this.toolstripStopBtn_Click);
+            // 
+            // toolstripPrefBtn
+            // 
+            this.toolstripPrefBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolstripPrefBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripPrefBtn.Image")));
+            this.toolstripPrefBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolstripPrefBtn.Name = "toolstripPrefBtn";
+            this.toolstripPrefBtn.Size = new System.Drawing.Size(96, 21);
+            this.toolstripPrefBtn.Text = "Preferences";
+            this.toolstripPrefBtn.Click += new System.EventHandler(this.toolstripPrefBtn_Click);
             // 
             // MainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 404);
+            this.ClientSize = new System.Drawing.Size(669, 432);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.FileEventsListView);
-            this.Controls.Add(this.btnOpenSettings);
-            this.Controls.Add(this.stopWatcher);
-            this.Controls.Add(this.startWatcher);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainAppWindow";
-            this.Text = "File System Watcher";
             this.Load += new System.EventHandler(this.MainAppWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button startWatcher;
-        private System.Windows.Forms.Button stopWatcher;
-        private System.Windows.Forms.Button btnOpenSettings;
         private System.Windows.Forms.ListView FileEventsListView;
         private System.Windows.Forms.ColumnHeader Timestamp;
         private System.Windows.Forms.ColumnHeader ItemName;
@@ -249,6 +271,11 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewEditLogsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveCurrentDataToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolstripStartBtn;
+        private System.Windows.Forms.ToolStripButton toolstripStopBtn;
+        private System.Windows.Forms.ToolStripButton toolstripPrefBtn;
     }
 }
 

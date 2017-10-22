@@ -24,6 +24,8 @@ namespace Assignment2.Services {
         public string LogPath { get; set; }
         public string LogFileName { get; set; }
         public bool MonitorSubDirectories { get; set; }
+        public List<FileEvent> LoggedEvents { get; set; }
+        public bool LiveLogging { get; set; }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService() {
@@ -35,6 +37,8 @@ namespace Assignment2.Services {
             this.MonitorPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             this.LogFileName = "fswatcher.log";
             this.MonitorSubDirectories = true;
+            this.LoggedEvents = new List<FileEvent>();
+            this.LiveLogging = false;
         }
 
         public void Init() {
@@ -49,14 +53,17 @@ namespace Assignment2.Services {
                                    NotifyFilters.FileName |
                                    NotifyFilters.DirectoryName;
 
-            watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Modified));
-            watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Created));
-            watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => LogEvent(e, FileEventTypes.Deleted));
-            watcher.Renamed += new RenamedEventHandler((object s, RenamedEventArgs e) => LogEvent(e, FileEventTypes.Renamed));
+            watcher.Changed += new FileSystemEventHandler((object s, FileSystemEventArgs e) => NewEvent(e, FileEventTypes.Modified));
+            watcher.Created += new FileSystemEventHandler((object s, FileSystemEventArgs e) => NewEvent(e, FileEventTypes.Created));
+            watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => NewEvent(e, FileEventTypes.Deleted));
+            watcher.Renamed += new RenamedEventHandler((object s, RenamedEventArgs e) => NewEvent(e, FileEventTypes.Renamed));
 
-            // Init a logging service (this could be changed out for SQL)
-            this.logger = new FileLoggerService(LogPath, LogFileName);
+            // File Logger
+            //this.logger = new FileLoggerService(LogPath, LogFileName);
 
+            // SQLite Logger
+            this.logger = new SQLiteLoggerService(".", "fs_events");
+            
             InitCompleted = true;
         }
 
@@ -69,7 +76,7 @@ namespace Assignment2.Services {
             watcher.EnableRaisingEvents = false;
         }
 
-        private void LogEvent(FileSystemEventArgs e, FileEventTypes fe) {
+        private void NewEvent(FileSystemEventArgs e, FileEventTypes fe) {
             string name = e.Name.Split('\\')[e.Name.Split('\\').Length - 1];
             // Skip logging if the event involves the file we're logging TO
             if(name == LogFileName) return; 
@@ -77,12 +84,23 @@ namespace Assignment2.Services {
             ObjectTypes objectType;
             try {
                  objectType = (File.GetAttributes(e.FullPath)).HasFlag(FileAttributes.Directory) ? ObjectTypes.Directory : ObjectTypes.File;
-            } catch(Exception ex) {
+            } catch {
                 objectType = ObjectTypes.File;
             }
+
             var fileEvent = new FileEvent(name, e.FullPath, fe, DateTime.Now, objectType);
-            logger.LogFileEvent(fileEvent);
+            this.LoggedEvents.Add(fileEvent);
             this.EmitEvent(fileEvent);
+        }
+
+        public bool LogAllEventsToBackend() {
+            try {
+                this.logger.LogFileEvents(this.LoggedEvents);
+            } catch {
+                return false;
+            }
+
+            return true;
         }
 
         public void AddChangedEventHandler(FileEventAction e) {

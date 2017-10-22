@@ -37,24 +37,8 @@ namespace Assignment2 {
             }
         }
 
-        private void startWatcher_Click(object sender, EventArgs e) {
-            app.Start();
-            startWatcher.Enabled = false;
-            stopWatcher.Enabled = true;
-        }
-
-        private void stopWatcher_Click(object sender, EventArgs e) {
-            app.Stop();
-            startWatcher.Enabled = true;
-            stopWatcher.Enabled = false;
-        }
-
-        private void btnOpenSettings_Click(object sender, EventArgs e) {
-            new SettingsModal(app).ShowDialog();
-        }
-
         private void MainAppWindow_Load(object sender, EventArgs e) {
-            new SettingsModal(app).ShowDialog();
+            
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -62,6 +46,22 @@ namespace Assignment2 {
         }
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) {
+            new SettingsModal(app).ShowDialog();
+        }
+
+        private void saveCurrentDataToolStripMenuItem_Click(object sender, EventArgs e) {
+            app.LogAllEventsToBackend();
+        }
+
+        private void toolstripStartBtn_Click(object sender, EventArgs e) {
+            this.app.Start();
+        }
+
+        private void toolstripStopBtn_Click(object sender, EventArgs e) {
+            this.app.Stop();
+        }
+
+        private void toolstripPrefBtn_Click(object sender, EventArgs e) {
             new SettingsModal(app).ShowDialog();
         }
     }

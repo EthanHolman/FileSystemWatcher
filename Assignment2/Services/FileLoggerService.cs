@@ -2,6 +2,7 @@
 using System.Text;
 using Assignment2.Models;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Assignment2.Services {
     public class FileLoggerService : ILoggerService {
@@ -25,7 +26,15 @@ namespace Assignment2.Services {
             fout.Flush();
         }
 
-        public FileEvent[] GetFileEvents(DateTime start, DateTime end, string[] extensions) {
+        public void LogFileEvents(List<FileEvent> data) {
+            throw new NotImplementedException();
+        }
+
+        public List<FileEvent> GetFileEvents(List<string> extensions) {
+            throw new NotImplementedException();
+        }
+
+        public List<FileEvent> GetFileEvents(DateTime start, DateTime end, List<string> extensions) {
             throw new NotImplementedException();
         }
 
