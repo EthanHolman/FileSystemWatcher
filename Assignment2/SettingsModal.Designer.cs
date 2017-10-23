@@ -37,16 +37,17 @@
             this.chooseLogDirDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.settingsTabs = new System.Windows.Forms.TabControl();
             this.tabPage0 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnChooseSqlitePath = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.DBTableName = new System.Windows.Forms.TextBox();
+            this.enableSQLite = new System.Windows.Forms.CheckBox();
+            this.DBPath = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.enableFileLog = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.DBPath = new System.Windows.Forms.TextBox();
-            this.enableSQLite = new System.Windows.Forms.CheckBox();
-            this.DBTableName = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.settingsTabs.SuspendLayout();
             this.tabPage0.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,7 +100,6 @@
             this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Log File Location:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // logPath
             // 
@@ -170,8 +170,19 @@
             this.tabPage0.Text = "General";
             this.tabPage0.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(21, 20);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(198, 17);
+            this.checkBox2.TabIndex = 0;
+            this.checkBox2.Text = "Log Filesystem Events as they occur";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnChooseSqlitePath);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.DBTableName);
             this.tabPage1.Controls.Add(this.enableSQLite);
@@ -183,6 +194,62 @@
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Log to SQLite";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnChooseSqlitePath
+            // 
+            this.btnChooseSqlitePath.Location = new System.Drawing.Point(389, 54);
+            this.btnChooseSqlitePath.Name = "btnChooseSqlitePath";
+            this.btnChooseSqlitePath.Size = new System.Drawing.Size(75, 23);
+            this.btnChooseSqlitePath.TabIndex = 5;
+            this.btnChooseSqlitePath.Text = "Change";
+            this.btnChooseSqlitePath.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Enabled = false;
+            this.label6.Location = new System.Drawing.Point(11, 84);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(117, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Database Table Name:";
+            // 
+            // DBTableName
+            // 
+            this.DBTableName.Enabled = false;
+            this.DBTableName.Location = new System.Drawing.Point(164, 81);
+            this.DBTableName.Name = "DBTableName";
+            this.DBTableName.Size = new System.Drawing.Size(219, 20);
+            this.DBTableName.TabIndex = 3;
+            // 
+            // enableSQLite
+            // 
+            this.enableSQLite.AutoSize = true;
+            this.enableSQLite.Location = new System.Drawing.Point(14, 21);
+            this.enableSQLite.Name = "enableSQLite";
+            this.enableSQLite.Size = new System.Drawing.Size(147, 17);
+            this.enableSQLite.TabIndex = 2;
+            this.enableSQLite.Text = "Enable Logging to SQLite";
+            this.enableSQLite.UseVisualStyleBackColor = true;
+            this.enableSQLite.CheckedChanged += new System.EventHandler(this.enableSQLite_CheckedChanged);
+            // 
+            // DBPath
+            // 
+            this.DBPath.Enabled = false;
+            this.DBPath.Location = new System.Drawing.Point(164, 54);
+            this.DBPath.Name = "DBPath";
+            this.DBPath.Size = new System.Drawing.Size(219, 20);
+            this.DBPath.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Enabled = false;
+            this.label5.Location = new System.Drawing.Point(11, 57);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(147, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Path to SQLite Database File:";
             // 
             // tabPage2
             // 
@@ -208,76 +275,17 @@
             this.enableFileLog.TabIndex = 11;
             this.enableFileLog.Text = "Enable Logging to File";
             this.enableFileLog.UseVisualStyleBackColor = true;
-            this.enableFileLog.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(21, 20);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(198, 17);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "Log Filesystem Events as they occur";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.enableFileLog.CheckedChanged += new System.EventHandler(this.enableFileLog_CheckedChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 67);
+            this.label3.Location = new System.Drawing.Point(8, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(217, 37);
             this.label3.TabIndex = 12;
             this.label3.Text = "Logging Options";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Enabled = false;
-            this.label5.Location = new System.Drawing.Point(11, 57);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(147, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Path to SQLite Database File:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // DBPath
-            // 
-            this.DBPath.Enabled = false;
-            this.DBPath.Location = new System.Drawing.Point(164, 54);
-            this.DBPath.Name = "DBPath";
-            this.DBPath.Size = new System.Drawing.Size(219, 20);
-            this.DBPath.TabIndex = 1;
-            this.DBPath.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // enableSQLite
-            // 
-            this.enableSQLite.AutoSize = true;
-            this.enableSQLite.Location = new System.Drawing.Point(14, 21);
-            this.enableSQLite.Name = "enableSQLite";
-            this.enableSQLite.Size = new System.Drawing.Size(147, 17);
-            this.enableSQLite.TabIndex = 2;
-            this.enableSQLite.Text = "Enable Logging to SQLite";
-            this.enableSQLite.UseVisualStyleBackColor = true;
-            this.enableSQLite.CheckedChanged += new System.EventHandler(this.enableSQLite_CheckedChanged);
-            // 
-            // DBTableName
-            // 
-            this.DBTableName.Enabled = false;
-            this.DBTableName.Location = new System.Drawing.Point(164, 81);
-            this.DBTableName.Name = "DBTableName";
-            this.DBTableName.Size = new System.Drawing.Size(219, 20);
-            this.DBTableName.TabIndex = 3;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Enabled = false;
-            this.label6.Location = new System.Drawing.Point(11, 84);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Database Table Name:";
             // 
             // SettingsModal
             // 
@@ -295,7 +303,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsModal";
-            this.Text = "Settings";
+            this.Text = "Preferences";
             this.settingsTabs.ResumeLayout(false);
             this.tabPage0.ResumeLayout(false);
             this.tabPage0.PerformLayout();
@@ -334,5 +342,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox DBTableName;
+        private System.Windows.Forms.Button btnChooseSqlitePath;
     }
 }

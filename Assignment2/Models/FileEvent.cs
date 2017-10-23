@@ -13,6 +13,7 @@ namespace Assignment2.Models {
             if(tmp.Length > 1) this.Extension = tmp[tmp.Length - 1];
 
             this.Id = Guid.NewGuid();
+            this.HasBeenSavedToLog = false;
         }
         public Guid Id { get; set; }
         public string FileName { get; set; }
@@ -21,6 +22,7 @@ namespace Assignment2.Models {
         public DateTime Timestamp { get; set; }
         public ObjectTypes ObjType { get; set; }
         public string Extension { get; set; }
+        public bool HasBeenSavedToLog { get; set; }
         public override string ToString() {
             return FileName + ", " + FilePath + ", " + EventType + ", " + Timestamp;
         }

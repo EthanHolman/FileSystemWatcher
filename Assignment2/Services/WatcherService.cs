@@ -14,19 +14,34 @@ namespace Assignment2.Services {
 
     public class WatcherService {
 
+        #region Property Backing Fields
+
+        private string _MonitorPath;
+        private bool _MonitorSubDirectories;
+
+        #endregion
+
         private FileSystemWatcher watcher;
-        private ILoggerService logger;
+        private List<ILoggerService> loggingServices;
         public event FileEventAction OnFilesystemChange;
+        
 
         public bool IsRunning { get; set; }
         public bool InitCompleted { get; set; }
-        public string MonitorPath { get; set; }
+        public string MonitorPath { get => _MonitorPath; set { _MonitorPath = value ; InitCompleted = false; } }
+        public bool MonitorSubDirectories { get => _MonitorSubDirectories; set { _MonitorSubDirectories = value; InitCompleted = false; } }
+        public List<FileEvent> Events { get; set; }
+        public bool LiveLogging { get; set; }
+        public bool LogToSqlite { get; set; }
+
+
+        public List<string> ExtensionsToWatch { get; set; }
+       
+        
+        /* Logging to File Properties */
+        public bool LogToFile { get; set; }
         public string LogPath { get; set; }
         public string LogFileName { get; set; }
-        public bool MonitorSubDirectories { get; set; }
-        public List<FileEvent> LoggedEvents { get; set; }
-        public bool LiveLogging { get; set; }
-
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService() {
             this.IsRunning = false;
@@ -37,10 +52,12 @@ namespace Assignment2.Services {
             this.MonitorPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             this.LogFileName = "fswatcher.log";
             this.MonitorSubDirectories = true;
-            this.LoggedEvents = new List<FileEvent>();
+            this.Events = new List<FileEvent>();
             this.LiveLogging = false;
+            this.loggingServices = new List<ILoggerService>();
         }
 
+        /* Init Function should only be called AFTER ALL PREFERENCES have been set! */
         public void Init() {
 
             // Create a new FileSystemWatcher and set its properties
@@ -58,11 +75,13 @@ namespace Assignment2.Services {
             watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => NewEvent(e, FileEventTypes.Deleted));
             watcher.Renamed += new RenamedEventHandler((object s, RenamedEventArgs e) => NewEvent(e, FileEventTypes.Renamed));
 
+            loggingServices.Clear(); // Remove all logging services that pre-exist
+
             // File Logger
-            //this.logger = new FileLoggerService(LogPath, LogFileName);
+            if(LogToFile) loggingServices.Add(new FileLoggerService(LogPath, LogFileName));
 
             // SQLite Logger
-            this.logger = new SQLiteLoggerService(".", "fs_events");
+            if(LogToSqlite) loggingServices.Add(new SQLiteLoggerService(".", "fs_events"));
             
             InitCompleted = true;
         }
@@ -70,10 +89,12 @@ namespace Assignment2.Services {
         public void Start() {
             if(!InitCompleted) this.Init();
             watcher.EnableRaisingEvents = true;
+            IsRunning = true;
         }
 
         public void Stop() {
             watcher.EnableRaisingEvents = false;
+            IsRunning = false;
         }
 
         private void NewEvent(FileSystemEventArgs e, FileEventTypes fe) {
@@ -89,18 +110,24 @@ namespace Assignment2.Services {
             }
 
             var fileEvent = new FileEvent(name, e.FullPath, fe, DateTime.Now, objectType);
-            this.LoggedEvents.Add(fileEvent);
+            this.Events.Add(fileEvent);
             this.EmitEvent(fileEvent);
+
+            // If user selected LiveLogging, then log this new FileEvent to all registered logging services
+            if(LiveLogging) {
+                foreach(ILoggerService cur in loggingServices) {
+                    cur.LogFileEvent(fileEvent);
+                }
+            }
         }
 
         public bool LogAllEventsToBackend() {
-            try {
-                this.logger.LogFileEvents(this.LoggedEvents);
-            } catch {
-                return false;
+            bool toReturn = true;
+            foreach(ILoggerService cur in loggingServices) {
+                if(!cur.LogFileEvents(this.Events)) toReturn = false;
             }
-
-            return true;
+            
+            return toReturn;
         }
 
         public void AddChangedEventHandler(FileEventAction e) {
@@ -111,6 +138,17 @@ namespace Assignment2.Services {
             if(this.OnFilesystemChange != null) {
                 OnFilesystemChange(f);
             }
+        }
+
+        public ILoggerService GetLoggerService() {
+            /*ILoggerService toReturn = null;
+
+            foreach(ILoggerService svc in loggingServices) {
+                if(svc is SQLiteLoggerService) toReturn = svc;
+            }
+
+            return toReturn;*/
+            return new SQLiteLoggerService(".", "fs_events");
         }
 
     }

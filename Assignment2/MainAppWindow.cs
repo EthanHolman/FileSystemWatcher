@@ -15,6 +15,8 @@ namespace Assignment2 {
 
         private WatcherService app;
         public delegate void FSChange(FileEvent f);
+        private int spamClickCounter = 0;
+
 
         public MainAppWindow() {
             InitializeComponent();
@@ -37,6 +39,22 @@ namespace Assignment2 {
             }
         }
 
+        private void Start() {
+            this.app.Start();
+            toolstripStartBtn.Enabled = false;
+            startToolStripMenuItem.Enabled = false;
+            toolstripStopBtn.Enabled = true;
+            stopToolStripMenuItem.Enabled = true;
+        }
+
+        private void Stop() {
+            this.app.Stop();
+            toolstripStartBtn.Enabled = true;
+            startToolStripMenuItem.Enabled = true;
+            toolstripStopBtn.Enabled = false;
+            stopToolStripMenuItem.Enabled = false;
+        }
+
         private void MainAppWindow_Load(object sender, EventArgs e) {
             
         }
@@ -50,19 +68,56 @@ namespace Assignment2 {
         }
 
         private void saveCurrentDataToolStripMenuItem_Click(object sender, EventArgs e) {
-            app.LogAllEventsToBackend();
+            if(!app.LogAllEventsToBackend()) {
+                MessageBox.Show("An error occurred when saving the current data to SQLite", "Error");
+            }
         }
 
         private void toolstripStartBtn_Click(object sender, EventArgs e) {
-            this.app.Start();
+            this.Start();
         }
 
         private void toolstripStopBtn_Click(object sender, EventArgs e) {
-            this.app.Stop();
+            this.Stop();
         }
 
         private void toolstripPrefBtn_Click(object sender, EventArgs e) {
             new SettingsModal(app).ShowDialog();
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Stop();
+        }
+
+        private void startToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Start();
+        }
+
+        private void label1_Click(object sender, EventArgs e) {
+            spamClickCounter++;
+            if(spamClickCounter == 4) MessageBox.Show("Could you please stop spam clicking the text?");
+
+            if(spamClickCounter == 7) {
+                label1.Visible = false;
+                MessageBox.Show("There! Now you can't click on it anymore!");
+            }
+        }
+
+        private void MainAppWindow_Click(object sender, EventArgs e) {
+            if(!label1.Visible) {
+                spamClickCounter++;
+                if(spamClickCounter == 10) MessageBox.Show("Really? Stop spam clicking!!!! Don't make me disable the entire window.");
+                if(spamClickCounter == 12) MessageBox.Show("Seriously, you need to stop. Or else something bad will happen. You have been warned.");
+                if(spamClickCounter == 17) Application.Exit();
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+        private void viewEditLogsToolStripMenuItem_Click(object sender, EventArgs e) {
+            new DatabaseQuery(this.app).Show();
         }
     }
 }

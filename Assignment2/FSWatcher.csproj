@@ -73,6 +73,12 @@
     <Compile Include="AboutModal.Designer.cs">
       <DependentUpon>AboutModal.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseQuery.Designer.cs">
+      <DependentUpon>DatabaseQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\FileLoggerService.cs" />
     <Compile Include="MainAppWindow.cs">
       <SubType>Form</SubType>
@@ -102,6 +108,9 @@
     <Compile Include="Services\WatcherService.cs" />
     <EmbeddedResource Include="AboutModal.resx">
       <DependentUpon>AboutModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatabaseQuery.resx">
+      <DependentUpon>DatabaseQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainAppWindow.resx">
       <DependentUpon>MainAppWindow.cs</DependentUpon>

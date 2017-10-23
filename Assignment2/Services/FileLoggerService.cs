@@ -26,7 +26,11 @@ namespace Assignment2.Services {
             fout.Flush();
         }
 
-        public void LogFileEvents(List<FileEvent> data) {
+        bool ILoggerService.LogFileEvent(FileEvent f) {
+            throw new NotImplementedException();
+        }
+
+        public bool LogFileEvents(List<FileEvent> data) {
             throw new NotImplementedException();
         }
 
@@ -39,6 +43,10 @@ namespace Assignment2.Services {
         }
 
         public void DeleteFileEvent(FileEvent f) {
+            throw new NotImplementedException();
+        }
+
+        public List<FileEvent> GetFileEvents() {
             throw new NotImplementedException();
         }
     }

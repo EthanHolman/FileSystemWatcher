@@ -56,25 +56,22 @@ namespace Assignment2 {
             }
         }
 
-        private void label2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e) {
-            btnChooseLogPath.Enabled = true;
-            logFileName.Enabled = true;
-        }
-
-        private void label5_Click(object sender, EventArgs e) {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) {
-
-        }
-
         private void enableSQLite_CheckedChanged(object sender, EventArgs e) {
+            app.LogToSqlite = enableSQLite.Checked;
             
+            // Enable or disable input fields based on whether or not checkbox is enabled
+            DBPath.Enabled = enableSQLite.Checked;
+            DBTableName.Enabled = enableSQLite.Checked;
+            btnChooseSqlitePath.Enabled = enableSQLite.Checked;
+        }
+
+        private void enableFileLog_CheckedChanged(object sender, EventArgs e) {
+            app.LogToFile = enableFileLog.Checked;
+
+            // Enable or disable input fields based on whether or not checkbox is enabled
+            logPath.Enabled = enableFileLog.Checked;
+            logFileName.Enabled = enableFileLog.Checked;
+            btnChooseLogPath.Enabled = enableFileLog.Checked;
         }
     }
 }
