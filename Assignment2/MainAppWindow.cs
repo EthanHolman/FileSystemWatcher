@@ -119,5 +119,11 @@ namespace Assignment2 {
         private void viewEditLogsToolStripMenuItem_Click(object sender, EventArgs e) {
             new DatabaseQuery(this.app).Show();
         }
+
+        private void saveToDB_Click(object sender, EventArgs e) {
+            if(!app.LogAllEventsToBackend()) {
+                MessageBox.Show("An error occurred when saving the current data to SQLite", "Error");
+            }
+        }
     }
 }

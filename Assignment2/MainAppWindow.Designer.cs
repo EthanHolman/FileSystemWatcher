@@ -46,6 +46,7 @@
             this.toolstripStartBtn = new System.Windows.Forms.ToolStripButton();
             this.toolstripStopBtn = new System.Windows.Forms.ToolStripButton();
             this.toolstripPrefBtn = new System.Windows.Forms.ToolStripButton();
+            this.saveToDB = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -118,7 +119,7 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -143,30 +144,30 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.startToolStripMenuItem.Text = "&Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.stopToolStripMenuItem.Text = "S&top";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // viewEditLogsToolStripMenuItem
             // 
             this.viewEditLogsToolStripMenuItem.Name = "viewEditLogsToolStripMenuItem";
-            this.viewEditLogsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.viewEditLogsToolStripMenuItem.Text = "View/Edit Logs";
+            this.viewEditLogsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.viewEditLogsToolStripMenuItem.Text = "View/&Edit Logged Events";
             this.viewEditLogsToolStripMenuItem.Click += new System.EventHandler(this.viewEditLogsToolStripMenuItem_Click);
             // 
             // saveCurrentDataToolStripMenuItem
             // 
             this.saveCurrentDataToolStripMenuItem.Name = "saveCurrentDataToolStripMenuItem";
-            this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.saveCurrentDataToolStripMenuItem.Text = "Save Current Data";
+            this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.saveCurrentDataToolStripMenuItem.Text = "Save &Current Data";
             this.saveCurrentDataToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentDataToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -180,7 +181,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -190,7 +191,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 37);
+            this.label1.Size = new System.Drawing.Size(231, 37);
             this.label1.TabIndex = 10;
             this.label1.Text = "File System Events";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -200,7 +201,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolstripStartBtn,
             this.toolstripStopBtn,
-            this.toolstripPrefBtn});
+            this.toolstripPrefBtn,
+            this.saveToDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(5);
@@ -238,6 +240,16 @@
             this.toolstripPrefBtn.Size = new System.Drawing.Size(96, 21);
             this.toolstripPrefBtn.Text = "Preferences";
             this.toolstripPrefBtn.Click += new System.EventHandler(this.toolstripPrefBtn_Click);
+            // 
+            // saveToDB
+            // 
+            this.saveToDB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.saveToDB.Image = ((System.Drawing.Image)(resources.GetObject("saveToDB.Image")));
+            this.saveToDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToDB.Name = "saveToDB";
+            this.saveToDB.Size = new System.Drawing.Size(133, 21);
+            this.saveToDB.Text = "Save Current Data";
+            this.saveToDB.Click += new System.EventHandler(this.saveToDB_Click);
             // 
             // MainAppWindow
             // 
@@ -285,6 +297,7 @@
         private System.Windows.Forms.ToolStripButton toolstripStartBtn;
         private System.Windows.Forms.ToolStripButton toolstripStopBtn;
         private System.Windows.Forms.ToolStripButton toolstripPrefBtn;
+        private System.Windows.Forms.ToolStripButton saveToDB;
     }
 }
 

@@ -18,6 +18,8 @@ namespace Assignment2.Services {
 
         private string _MonitorPath;
         private bool _MonitorSubDirectories;
+        private bool _LogToSqlite;
+        private bool _LogToFile;
 
         #endregion
 
@@ -32,16 +34,18 @@ namespace Assignment2.Services {
         public bool MonitorSubDirectories { get => _MonitorSubDirectories; set { _MonitorSubDirectories = value; InitCompleted = false; } }
         public List<FileEvent> Events { get; set; }
         public bool LiveLogging { get; set; }
-        public bool LogToSqlite { get; set; }
-
-
+        public bool LogToSqlite { get => _LogToSqlite; set { _LogToSqlite = value; RefreshLoggers(); } }
+        public string SqliteTableName { get; set; }
+        public string SqliteFileName { get; set; }
         public List<string> ExtensionsToWatch { get; set; }
        
         
         /* Logging to File Properties */
-        public bool LogToFile { get; set; }
+        public bool LogToFile { get => _LogToFile; set { _LogToFile = value; RefreshLoggers(); } }
         public string LogPath { get; set; }
         public string LogFileName { get; set; }
+
+
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public WatcherService() {
             this.IsRunning = false;
@@ -55,6 +59,9 @@ namespace Assignment2.Services {
             this.Events = new List<FileEvent>();
             this.LiveLogging = false;
             this.loggingServices = new List<ILoggerService>();
+            this.SqliteTableName = "fs_events";
+            this.SqliteFileName = ".";
+            this.ExtensionsToWatch = new List<string>();
         }
 
         /* Init Function should only be called AFTER ALL PREFERENCES have been set! */
@@ -75,15 +82,20 @@ namespace Assignment2.Services {
             watcher.Deleted += new FileSystemEventHandler((object s, FileSystemEventArgs e) => NewEvent(e, FileEventTypes.Deleted));
             watcher.Renamed += new RenamedEventHandler((object s, RenamedEventArgs e) => NewEvent(e, FileEventTypes.Renamed));
 
+            RefreshLoggers();
+
+            InitCompleted = true;
+        }
+
+        private void RefreshLoggers() {
             loggingServices.Clear(); // Remove all logging services that pre-exist
 
             // File Logger
             if(LogToFile) loggingServices.Add(new FileLoggerService(LogPath, LogFileName));
 
             // SQLite Logger
-            if(LogToSqlite) loggingServices.Add(new SQLiteLoggerService(".", "fs_events"));
-            
-            InitCompleted = true;
+            if(LogToSqlite) loggingServices.Add(new SQLiteLoggerService(SqliteFileName, SqliteTableName));
+
         }
 
         public void Start() {
@@ -105,18 +117,20 @@ namespace Assignment2.Services {
             ObjectTypes objectType;
             try {
                  objectType = (File.GetAttributes(e.FullPath)).HasFlag(FileAttributes.Directory) ? ObjectTypes.Directory : ObjectTypes.File;
-            } catch {
-                objectType = ObjectTypes.File;
-            }
+            } catch { objectType = ObjectTypes.File; }
 
             var fileEvent = new FileEvent(name, e.FullPath, fe, DateTime.Now, objectType);
-            this.Events.Add(fileEvent);
-            this.EmitEvent(fileEvent);
+            
+            // Only process fileEvent if it's extension matches the filter, or no filter is defined
+            if(ExtensionsToWatch.Contains(fileEvent.Extension) || ExtensionsToWatch.Count == 0){
+                this.Events.Add(fileEvent);
+                this.EmitEvent(fileEvent);
 
-            // If user selected LiveLogging, then log this new FileEvent to all registered logging services
-            if(LiveLogging) {
-                foreach(ILoggerService cur in loggingServices) {
-                    cur.LogFileEvent(fileEvent);
+                // If user selected LiveLogging, then log this new FileEvent to all registered logging services
+                if(LiveLogging) {
+                    foreach(ILoggerService cur in loggingServices) {
+                        cur.LogFileEvent(fileEvent);
+                    }
                 }
             }
         }

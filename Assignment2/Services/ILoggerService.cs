@@ -13,5 +13,6 @@ namespace Assignment2.Services {
         List<FileEvent> GetFileEvents(List<string> extensions);
         List<FileEvent> GetFileEvents(DateTime start, DateTime end, List<string> extensions);
         void DeleteFileEvent(FileEvent f);
+        bool EraseData();
     }
 }

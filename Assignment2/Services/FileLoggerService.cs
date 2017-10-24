@@ -49,5 +49,9 @@ namespace Assignment2.Services {
         public List<FileEvent> GetFileEvents() {
             throw new NotImplementedException();
         }
+
+        public bool EraseData() {
+            throw new NotImplementedException();
+        }
     }
 }

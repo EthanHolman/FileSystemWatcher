@@ -17,11 +17,28 @@ namespace Assignment2 {
             this.app = appSvc;
             InitializeComponent();
 
-            // Poplate fields with default values
+            // Poplate fields with values set in app
+            enableLiveLogging.Checked = app.LiveLogging;
             monitoringDir.Text = this.app.MonitorPath;
             logPath.Text = this.app.LogPath;
             logFileName.Text = this.app.LogFileName;
             includeSubdirs.Checked = this.app.MonitorSubDirectories;
+            enableSQLite.Checked = this.app.LogToSqlite;
+            enableFileLog.Checked = this.app.LogToFile;
+            DBPath.Text = this.app.SqliteFileName;
+            DBTableName.Text = this.app.SqliteTableName;
+            foreach(string item in this.app.ExtensionsToWatch) { filterExtensions.Items.Add(item); }
+
+            updateEnabledFields();
+        }
+
+        private void updateEnabledFields() {
+            DBTableName.Enabled = btnChooseSqlitePath.Enabled = lblSqlitePath.Enabled = lblSqliteTableName.Enabled = enableSQLite.Checked;
+            lblLogFileLoc.Enabled = lblLogFileName.Enabled = logFileName.Enabled = btnChooseLogPath.Enabled = enableFileLog.Checked;
+        }
+
+        private void saveExtensionFilter() {
+            this.app.ExtensionsToWatch = filterExtensions.Items.Cast<string>().ToList();
         }
 
         private void btnChooseMonitorDir_Click(object sender, EventArgs e) {
@@ -58,20 +75,40 @@ namespace Assignment2 {
 
         private void enableSQLite_CheckedChanged(object sender, EventArgs e) {
             app.LogToSqlite = enableSQLite.Checked;
-            
-            // Enable or disable input fields based on whether or not checkbox is enabled
-            DBPath.Enabled = enableSQLite.Checked;
-            DBTableName.Enabled = enableSQLite.Checked;
-            btnChooseSqlitePath.Enabled = enableSQLite.Checked;
+            updateEnabledFields();
         }
 
         private void enableFileLog_CheckedChanged(object sender, EventArgs e) {
             app.LogToFile = enableFileLog.Checked;
+            updateEnabledFields();
+        }
 
-            // Enable or disable input fields based on whether or not checkbox is enabled
-            logPath.Enabled = enableFileLog.Checked;
-            logFileName.Enabled = enableFileLog.Checked;
-            btnChooseLogPath.Enabled = enableFileLog.Checked;
+        private void DBTableName_TextChanged(object sender, EventArgs e) {
+            this.app.SqliteTableName = DBTableName.Text;
+        }
+
+        private void enableLiveLogging_CheckedChanged(object sender, EventArgs e) {
+            this.app.LiveLogging = enableLiveLogging.Checked;
+        }
+
+        private void btnAddExtension_Click(object sender, EventArgs e) {
+            if(extensionInput.Text.Length > 0) {
+                filterExtensions.Items.Add(extensionInput.Text);
+                extensionInput.Clear();
+                saveExtensionFilter();
+            }
+        }
+
+        private void btnRemoveSelectedExtension_Click(object sender, EventArgs e) {
+            int selected = filterExtensions.SelectedIndex;
+            filterExtensions.Items.RemoveAt(selected);
+            saveExtensionFilter();
+            if(selected > 0) filterExtensions.SetSelected(selected - 1, true);
+            else btnRemoveSelectedExtension.Enabled = false;
+        }
+
+        private void filterExtensions_SelectedIndexChanged(object sender, EventArgs e) {
+            btnRemoveSelectedExtension.Enabled = true;
         }
     }
 }

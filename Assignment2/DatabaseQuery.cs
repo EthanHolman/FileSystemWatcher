@@ -13,16 +13,16 @@ using System.Windows.Forms;
 namespace Assignment2 {
     public partial class DatabaseQuery : Form {
         private WatcherService app;
+        private ILoggerService loggerService;
         public DatabaseQuery(WatcherService a) {
             this.app = a;
+            this.loggerService = a.GetLoggerService();
             InitializeComponent();
         }
 
         private void btnRunQuery_Click(object sender, EventArgs e) {
-            List<string> data = new List<string>();
-            data.Add("txt");
-
-            List<FileEvent> returnedData = app.GetLoggerService().GetFileEvents(DateTime.Now, DateTime.Now, data);
+            FileEventsListView.Items.Clear();
+            List<FileEvent> returnedData = this.loggerService.GetFileEvents(filterExtensions.Items.Cast<string>().ToList());
             foreach(FileEvent f in returnedData) {
                 ListViewItem temp = new ListViewItem(f.Timestamp.ToString());
                 temp.SubItems.Add(f.FileName);
@@ -41,7 +41,24 @@ namespace Assignment2 {
         }
 
         private void btnRemoveSelectedExtension_Click(object sender, EventArgs e) {
-            filterExtensions.Items.RemoveAt(filterExtensions.SelectedIndex);
+            int selected = filterExtensions.SelectedIndex;
+            filterExtensions.Items.RemoveAt(selected);
+            if(selected > 0) filterExtensions.SetSelected(selected - 1, true);
+            else btnRemoveSelectedExtension.Visible = false;
+        }
+
+        private void filterExtensions_SelectedIndexChanged(object sender, EventArgs e) {
+            btnRemoveSelectedExtension.Visible = true;
+        }
+
+        private void btnClearTable_Click(object sender, EventArgs e) {
+            var confirm = MessageBox.Show("Are you sure? This operation will irreversibly clear all contents of logs", "Erase Entire Database?", MessageBoxButtons.YesNo);
+            if(confirm.Equals(DialogResult.Yes)) {
+                if(this.loggerService.EraseData()) {
+                    MessageBox.Show("Database cleared successfully!", "File System Watcher");
+                    FileEventsListView.Items.Clear();
+                } else MessageBox.Show("An error was encountered when attempting to clear the database", "Bad things happen...");
+            }
         }
     }
 }

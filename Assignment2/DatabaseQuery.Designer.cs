@@ -37,6 +37,8 @@
             this.btnRemoveSelectedExtension = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRunQuery = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnClearTable = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,19 +92,20 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(337, 37);
+            this.label1.Size = new System.Drawing.Size(249, 37);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Query File Events Database";
+            this.label1.Text = "Logged Data Editor";
             // 
             // filterExtensions
             // 
             this.filterExtensions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterExtensions.FormattingEnabled = true;
             this.filterExtensions.ItemHeight = 15;
-            this.filterExtensions.Location = new System.Drawing.Point(7, 52);
+            this.filterExtensions.Location = new System.Drawing.Point(7, 63);
             this.filterExtensions.Name = "filterExtensions";
             this.filterExtensions.Size = new System.Drawing.Size(170, 139);
             this.filterExtensions.TabIndex = 0;
+            this.filterExtensions.SelectedIndexChanged += new System.EventHandler(this.filterExtensions_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -116,14 +119,14 @@
             // 
             // extensionInput
             // 
-            this.extensionInput.Location = new System.Drawing.Point(8, 201);
+            this.extensionInput.Location = new System.Drawing.Point(8, 212);
             this.extensionInput.Name = "extensionInput";
             this.extensionInput.Size = new System.Drawing.Size(81, 20);
             this.extensionInput.TabIndex = 2;
             // 
             // btnAddExtension
             // 
-            this.btnAddExtension.Location = new System.Drawing.Point(96, 199);
+            this.btnAddExtension.Location = new System.Drawing.Point(96, 210);
             this.btnAddExtension.Name = "btnAddExtension";
             this.btnAddExtension.Size = new System.Drawing.Size(81, 23);
             this.btnAddExtension.TabIndex = 3;
@@ -133,18 +136,22 @@
             // 
             // btnRemoveSelectedExtension
             // 
-            this.btnRemoveSelectedExtension.Location = new System.Drawing.Point(7, 228);
+            this.btnRemoveSelectedExtension.Location = new System.Drawing.Point(7, 239);
             this.btnRemoveSelectedExtension.Name = "btnRemoveSelectedExtension";
             this.btnRemoveSelectedExtension.Size = new System.Drawing.Size(170, 25);
             this.btnRemoveSelectedExtension.TabIndex = 4;
             this.btnRemoveSelectedExtension.Text = "Remove Selected";
             this.btnRemoveSelectedExtension.UseVisualStyleBackColor = true;
+            this.btnRemoveSelectedExtension.Visible = false;
             this.btnRemoveSelectedExtension.Click += new System.EventHandler(this.btnRemoveSelectedExtension_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.btnClearTable);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnRunQuery);
             this.panel1.Controls.Add(this.filterExtensions);
             this.panel1.Controls.Add(this.label2);
@@ -160,15 +167,37 @@
             // 
             this.btnRunQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRunQuery.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRunQuery.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRunQuery.Location = new System.Drawing.Point(8, 350);
             this.btnRunQuery.Name = "btnRunQuery";
             this.btnRunQuery.Size = new System.Drawing.Size(169, 38);
             this.btnRunQuery.TabIndex = 12;
-            this.btnRunQuery.Text = "Run Query";
-            this.btnRunQuery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRunQuery.Text = "Load Data";
             this.btnRunQuery.UseVisualStyleBackColor = true;
             this.btnRunQuery.Click += new System.EventHandler(this.btnRunQuery_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 37);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(119, 19);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Leave blank for all";
+            // 
+            // btnClearTable
+            // 
+            this.btnClearTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClearTable.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearTable.Location = new System.Drawing.Point(8, 306);
+            this.btnClearTable.Name = "btnClearTable";
+            this.btnClearTable.Size = new System.Drawing.Size(169, 38);
+            this.btnClearTable.TabIndex = 14;
+            this.btnClearTable.Text = "Clear Table Data";
+            this.btnClearTable.UseVisualStyleBackColor = true;
+            this.btnClearTable.Click += new System.EventHandler(this.btnClearTable_Click);
             // 
             // DatabaseQuery
             // 
@@ -179,7 +208,7 @@
             this.Controls.Add(this.FileEventsListView);
             this.Controls.Add(this.label1);
             this.Name = "DatabaseQuery";
-            this.Text = "DatabaseQuery";
+            this.Text = "Database Query";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -203,5 +232,7 @@
         private System.Windows.Forms.Button btnRemoveSelectedExtension;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnRunQuery;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnClearTable;
     }
 }

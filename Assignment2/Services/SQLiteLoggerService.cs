@@ -30,7 +30,7 @@ namespace Assignment2.Services {
         }
 
         public List<FileEvent> GetFileEvents(List<string> extensions) {
-            throw new NotImplementedException();
+            return GetFileEvents(DateTime.MinValue, DateTime.MinValue, extensions);
         }
 
         public List<FileEvent> GetFileEvents(DateTime start, DateTime end, List<string> extensions) {
@@ -38,7 +38,8 @@ namespace Assignment2.Services {
             string extStr = string.Join(",", extensions.Select(x => "'" + x.ToString() + "'").ToArray());
 
             using(SQLiteCommand cmd = this.sql.CreateCommand()) {
-                cmd.CommandText = $"SELECT * FROM {tableName} WHERE Extension IN ({extStr})";
+                cmd.CommandText = $"SELECT * FROM {tableName}";
+                if(extensions.Count > 0) cmd.CommandText += $" WHERE Extension IN ({extStr})";
                 using(SQLiteDataReader reader = cmd.ExecuteReader()) {
                     while(reader.Read()) {
                         toReturn.Add(new FileEvent(
@@ -47,7 +48,7 @@ namespace Assignment2.Services {
                             (FileEventTypes) Enum.Parse(typeof(FileEventTypes), (reader["EventType"]).ToString()),
                             DateTime.Parse(reader["Timestamp"].ToString()),
                             (ObjectTypes) Enum.Parse(typeof(ObjectTypes), (reader["ObjType"]).ToString())
-                            ));
+                        ));
                     }
                 }
             }
@@ -63,6 +64,7 @@ namespace Assignment2.Services {
 
         public bool LogFileEvent(FileEvent f) {
             List<FileEvent> temp = new List<FileEvent>();
+            temp.Add(f);
             return this.LogFileEvents(temp);
         }
 
@@ -74,6 +76,9 @@ namespace Assignment2.Services {
                     cmd.Prepare();
 
                     foreach(FileEvent item in data) {
+                        // Skip files that have already been logged (if liveLogging is on)
+                        if(item.HasBeenSavedToLog) continue;
+
                         cmd.Parameters.AddWithValue("@Id", item.Id.ToString());
                         cmd.Parameters.AddWithValue("@FileName", item.FileName);
                         cmd.Parameters.AddWithValue("@FilePath", item.FilePath);
@@ -83,7 +88,21 @@ namespace Assignment2.Services {
                         cmd.Parameters.AddWithValue("@Extension", item.Extension);
 
                         cmd.ExecuteNonQuery();
+                        item.HasBeenSavedToLog = true;
                     }
+                }
+            } catch {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool EraseData() {
+            try {
+                using(SQLiteCommand cmd = this.sql.CreateCommand()) {
+                    cmd.CommandText = $"DELETE FROM {tableName};";
+                    cmd.ExecuteNonQuery();
                 }
             } catch {
                 return false;
