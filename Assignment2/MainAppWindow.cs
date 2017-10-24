@@ -55,6 +55,20 @@ namespace Assignment2 {
             stopToolStripMenuItem.Enabled = false;
         }
 
+        private bool SaveAllData() {
+            if(app.LogToSqlite || app.LogToFile) {
+                if(!app.LogAllEventsToBackend()) {
+                    MessageBox.Show("An error occurred when saving the current data to SQLite", "Error");
+                    return false;
+                }
+            } else {
+                MessageBox.Show("There aren't any logging services configured. Please configure one or more logging services in Preferences.", "File System Watcher");
+                return false;
+            }
+
+            return true;
+        }
+
         private void MainAppWindow_Load(object sender, EventArgs e) {
             
         }
@@ -67,11 +81,7 @@ namespace Assignment2 {
             new SettingsModal(app).ShowDialog();
         }
 
-        private void saveCurrentDataToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(!app.LogAllEventsToBackend()) {
-                MessageBox.Show("An error occurred when saving the current data to SQLite", "Error");
-            }
-        }
+        private void saveCurrentDataToolStripMenuItem_Click(object sender, EventArgs e) { SaveAllData(); }
 
         private void toolstripStartBtn_Click(object sender, EventArgs e) {
             this.Start();
@@ -117,12 +127,27 @@ namespace Assignment2 {
         }
 
         private void viewEditLogsToolStripMenuItem_Click(object sender, EventArgs e) {
-            new DatabaseQuery(this.app).Show();
+            if(app.LogToSqlite)
+                new DatabaseQuery(this.app.GetLoggerService()).Show();
+            else
+                MessageBox.Show("No SQLite Database has been configured in Preferences", "File System Watcher");
         }
 
-        private void saveToDB_Click(object sender, EventArgs e) {
-            if(!app.LogAllEventsToBackend()) {
-                MessageBox.Show("An error occurred when saving the current data to SQLite", "Error");
+        private void saveToDB_Click(object sender, EventArgs e) { SaveAllData(); }
+
+        private void MainAppWindow_FormClosing(object sender, FormClosingEventArgs e) {
+            bool unsavedLogItems = false;
+            foreach(FileEvent item in this.app.Events) {
+                if(!item.HasBeenSavedToLog) unsavedLogItems = true;
+            }
+
+            if(unsavedLogItems) {
+                var prompt = MessageBox.Show("There are unlogged File System Events. Would you like to log these remaining items?", "File System Watcher", MessageBoxButtons.YesNoCancel);
+                if(prompt.Equals(DialogResult.Yes)) {
+                    if(!SaveAllData()) e.Cancel = true;
+                } else if(prompt.Equals(DialogResult.Cancel)) {
+                    e.Cancel = true;
+                }
             }
         }
     }

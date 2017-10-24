@@ -37,20 +37,24 @@ namespace Assignment2.Services {
             List<FileEvent> toReturn = new List<FileEvent>();
             string extStr = string.Join(",", extensions.Select(x => "'" + x.ToString() + "'").ToArray());
 
-            using(SQLiteCommand cmd = this.sql.CreateCommand()) {
-                cmd.CommandText = $"SELECT * FROM {tableName}";
-                if(extensions.Count > 0) cmd.CommandText += $" WHERE Extension IN ({extStr})";
-                using(SQLiteDataReader reader = cmd.ExecuteReader()) {
-                    while(reader.Read()) {
-                        toReturn.Add(new FileEvent(
-                            reader["FileName"].ToString(),
-                            reader["FilePath"].ToString(),
-                            (FileEventTypes) Enum.Parse(typeof(FileEventTypes), (reader["EventType"]).ToString()),
-                            DateTime.Parse(reader["Timestamp"].ToString()),
-                            (ObjectTypes) Enum.Parse(typeof(ObjectTypes), (reader["ObjType"]).ToString())
-                        ));
+            try {
+                using(SQLiteCommand cmd = this.sql.CreateCommand()) {
+                    cmd.CommandText = $"SELECT * FROM {tableName}";
+                    if(extensions.Count > 0) cmd.CommandText += $" WHERE Extension IN ({extStr})";
+                    using(SQLiteDataReader reader = cmd.ExecuteReader()) {
+                        while(reader.Read()) {
+                            toReturn.Add(new FileEvent(
+                                reader["FileName"].ToString(),
+                                reader["FilePath"].ToString(),
+                                (FileEventTypes) Enum.Parse(typeof(FileEventTypes), (reader["EventType"]).ToString()),
+                                DateTime.Parse(reader["Timestamp"].ToString()),
+                                (ObjectTypes) Enum.Parse(typeof(ObjectTypes), (reader["ObjType"]).ToString())
+                            ));
+                        }
                     }
                 }
+            } catch {
+                return null;
             }
 
             return toReturn;

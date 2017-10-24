@@ -123,6 +123,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SettingsModal.resx">
       <DependentUpon>SettingsModal.cs</DependentUpon>
@@ -154,6 +155,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\font-awesome_4-7-0_gear_16_0_007dff_none.png" />
+    <Content Include="Assets\font-awesome_4-7-0_info_16_0_007dff_none.png" />
+    <Content Include="Assets\font-awesome_4-7-0_pencil_16_0_007dff_none.png" />
+    <Content Include="Assets\font-awesome_4-7-0_play_16_0_007dff_none.png" />
+    <Content Include="Assets\font-awesome_4-7-0_save_16_0_007dff_none.png" />
+    <Content Include="Assets\font-awesome_4-7-0_stop_16_0_007dff_none.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -216,6 +216,7 @@
             // enableFileLog
             // 
             this.enableFileLog.AutoSize = true;
+            this.enableFileLog.Enabled = false;
             this.enableFileLog.Location = new System.Drawing.Point(18, 512);
             this.enableFileLog.Name = "enableFileLog";
             this.enableFileLog.Size = new System.Drawing.Size(119, 17);

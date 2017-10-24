@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAppWindow));
             this.FileEventsListView = new System.Windows.Forms.ListView();
             this.Timestamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -32,21 +31,21 @@
             this.Path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileSystemWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewEditLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveCurrentDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolstripStartBtn = new System.Windows.Forms.ToolStripButton();
             this.toolstripStopBtn = new System.Windows.Forms.ToolStripButton();
             this.toolstripPrefBtn = new System.Windows.Forms.ToolStripButton();
             this.saveToDB = new System.Windows.Forms.ToolStripButton();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveCurrentDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -116,13 +115,6 @@
             this.fileSystemWatcherToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
             this.fileSystemWatcherToolStripMenuItem.Text = "&File System Watcher";
             // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.preferencesToolStripMenuItem.Text = "&Preferences";
-            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -141,34 +133,13 @@
             this.loggingToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.loggingToolStripMenuItem.Text = "&Logging";
             // 
-            // startToolStripMenuItem
-            // 
-            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.startToolStripMenuItem.Text = "&Start";
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
-            // 
-            // stopToolStripMenuItem
-            // 
-            this.stopToolStripMenuItem.Enabled = false;
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.stopToolStripMenuItem.Text = "S&top";
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
-            // 
             // viewEditLogsToolStripMenuItem
             // 
+            this.viewEditLogsToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_pencil_16_0_007dff_none;
             this.viewEditLogsToolStripMenuItem.Name = "viewEditLogsToolStripMenuItem";
             this.viewEditLogsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.viewEditLogsToolStripMenuItem.Text = "View/&Edit Logged Events";
             this.viewEditLogsToolStripMenuItem.Click += new System.EventHandler(this.viewEditLogsToolStripMenuItem_Click);
-            // 
-            // saveCurrentDataToolStripMenuItem
-            // 
-            this.saveCurrentDataToolStripMenuItem.Name = "saveCurrentDataToolStripMenuItem";
-            this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.saveCurrentDataToolStripMenuItem.Text = "Save &Current Data";
-            this.saveCurrentDataToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentDataToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -177,13 +148,6 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -213,7 +177,7 @@
             // toolstripStartBtn
             // 
             this.toolstripStartBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripStartBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripStartBtn.Image")));
+            this.toolstripStartBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
             this.toolstripStartBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripStartBtn.Name = "toolstripStartBtn";
             this.toolstripStartBtn.Size = new System.Drawing.Size(55, 21);
@@ -224,7 +188,7 @@
             // 
             this.toolstripStopBtn.Enabled = false;
             this.toolstripStopBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripStopBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripStopBtn.Image")));
+            this.toolstripStopBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
             this.toolstripStopBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripStopBtn.Name = "toolstripStopBtn";
             this.toolstripStopBtn.Size = new System.Drawing.Size(55, 21);
@@ -234,7 +198,7 @@
             // toolstripPrefBtn
             // 
             this.toolstripPrefBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripPrefBtn.Image = ((System.Drawing.Image)(resources.GetObject("toolstripPrefBtn.Image")));
+            this.toolstripPrefBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
             this.toolstripPrefBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripPrefBtn.Name = "toolstripPrefBtn";
             this.toolstripPrefBtn.Size = new System.Drawing.Size(96, 21);
@@ -244,12 +208,53 @@
             // saveToDB
             // 
             this.saveToDB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.saveToDB.Image = ((System.Drawing.Image)(resources.GetObject("saveToDB.Image")));
+            this.saveToDB.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
             this.saveToDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToDB.Name = "saveToDB";
             this.saveToDB.Size = new System.Drawing.Size(133, 21);
             this.saveToDB.Text = "Save Current Data";
             this.saveToDB.Click += new System.EventHandler(this.saveToDB_Click);
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.preferencesToolStripMenuItem.Text = "&Preferences";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.startToolStripMenuItem.Text = "&Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Enabled = false;
+            this.stopToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.stopToolStripMenuItem.Text = "S&top";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // saveCurrentDataToolStripMenuItem
+            // 
+            this.saveCurrentDataToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
+            this.saveCurrentDataToolStripMenuItem.Name = "saveCurrentDataToolStripMenuItem";
+            this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.saveCurrentDataToolStripMenuItem.Text = "Save &Current Data";
+            this.saveCurrentDataToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentDataToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_info_16_0_007dff_none;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainAppWindow
             // 
@@ -263,6 +268,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainAppWindow";
             this.Text = "File System Watcher";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainAppWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainAppWindow_Load);
             this.Click += new System.EventHandler(this.MainAppWindow_Click);
             this.menuStrip1.ResumeLayout(false);

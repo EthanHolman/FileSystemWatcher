@@ -91,10 +91,16 @@ namespace Assignment2.Services {
             loggingServices.Clear(); // Remove all logging services that pre-exist
 
             // File Logger
-            if(LogToFile) loggingServices.Add(new FileLoggerService(LogPath, LogFileName));
+            if(LogToFile) {
+                ILoggerService fileLogger = new FileLoggerService(LogPath, LogFileName);
+                if(fileLogger != null) loggingServices.Add(fileLogger);
+            }
 
             // SQLite Logger
-            if(LogToSqlite) loggingServices.Add(new SQLiteLoggerService(SqliteFileName, SqliteTableName));
+            if(LogToSqlite) {
+                ILoggerService SQLiteLogger = new SQLiteLoggerService(SqliteFileName, SqliteTableName);
+                if(SQLiteLogger != null) loggingServices.Add(SQLiteLogger);
+            }
 
         }
 
@@ -162,7 +168,7 @@ namespace Assignment2.Services {
             }
 
             return toReturn;*/
-            return new SQLiteLoggerService(".", "fs_events");
+            return new SQLiteLoggerService(SqliteFileName, SqliteTableName);
         }
 
     }

@@ -12,11 +12,9 @@ using System.Windows.Forms;
 
 namespace Assignment2 {
     public partial class DatabaseQuery : Form {
-        private WatcherService app;
         private ILoggerService loggerService;
-        public DatabaseQuery(WatcherService a) {
-            this.app = a;
-            this.loggerService = a.GetLoggerService();
+        public DatabaseQuery(ILoggerService logger) {
+            this.loggerService = logger;
             InitializeComponent();
         }
 
