@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Assignment2.Models;
+using FSWatcher.Models;
 
-namespace Assignment2.Services {
+namespace FSWatcher.Services {
     public interface ILoggerService {
         bool LogFileEvent(FileEvent f);
         bool LogFileEvents(List<FileEvent> data);

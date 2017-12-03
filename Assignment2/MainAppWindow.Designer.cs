@@ -1,4 +1,4 @@
-﻿namespace Assignment2 {
+﻿namespace FSWatcher {
     partial class MainAppWindow {
         /// <summary>
         /// Required designer variable.
@@ -135,7 +135,7 @@
             // 
             // viewEditLogsToolStripMenuItem
             // 
-            this.viewEditLogsToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_pencil_16_0_007dff_none;
+            this.viewEditLogsToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_pencil_16_0_007dff_none;
             this.viewEditLogsToolStripMenuItem.Name = "viewEditLogsToolStripMenuItem";
             this.viewEditLogsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.viewEditLogsToolStripMenuItem.Text = "View/&Edit Logged Events";
@@ -177,7 +177,7 @@
             // toolstripStartBtn
             // 
             this.toolstripStartBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripStartBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
+            this.toolstripStartBtn.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
             this.toolstripStartBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripStartBtn.Name = "toolstripStartBtn";
             this.toolstripStartBtn.Size = new System.Drawing.Size(55, 21);
@@ -188,7 +188,7 @@
             // 
             this.toolstripStopBtn.Enabled = false;
             this.toolstripStopBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripStopBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
+            this.toolstripStopBtn.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
             this.toolstripStopBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripStopBtn.Name = "toolstripStopBtn";
             this.toolstripStopBtn.Size = new System.Drawing.Size(55, 21);
@@ -198,7 +198,7 @@
             // toolstripPrefBtn
             // 
             this.toolstripPrefBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolstripPrefBtn.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
+            this.toolstripPrefBtn.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
             this.toolstripPrefBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolstripPrefBtn.Name = "toolstripPrefBtn";
             this.toolstripPrefBtn.Size = new System.Drawing.Size(96, 21);
@@ -208,7 +208,7 @@
             // saveToDB
             // 
             this.saveToDB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.saveToDB.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
+            this.saveToDB.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
             this.saveToDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToDB.Name = "saveToDB";
             this.saveToDB.Size = new System.Drawing.Size(133, 21);
@@ -217,7 +217,7 @@
             // 
             // preferencesToolStripMenuItem
             // 
-            this.preferencesToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
+            this.preferencesToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_gear_16_0_007dff_none;
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.preferencesToolStripMenuItem.Text = "&Preferences";
@@ -225,7 +225,7 @@
             // 
             // startToolStripMenuItem
             // 
-            this.startToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
+            this.startToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_play_16_0_007dff_none;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.startToolStripMenuItem.Text = "&Start";
@@ -234,7 +234,7 @@
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Enabled = false;
-            this.stopToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
+            this.stopToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_stop_16_0_007dff_none;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.stopToolStripMenuItem.Text = "S&top";
@@ -242,7 +242,7 @@
             // 
             // saveCurrentDataToolStripMenuItem
             // 
-            this.saveCurrentDataToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
+            this.saveCurrentDataToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_save_16_0_007dff_none;
             this.saveCurrentDataToolStripMenuItem.Name = "saveCurrentDataToolStripMenuItem";
             this.saveCurrentDataToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.saveCurrentDataToolStripMenuItem.Text = "Save &Current Data";
@@ -250,7 +250,7 @@
             // 
             // aboutToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Image = global::Assignment2.Properties.Resources.font_awesome_4_7_0_info_16_0_007dff_none;
+            this.aboutToolStripMenuItem.Image = global::FSWatcher.Properties.Resources.font_awesome_4_7_0_info_16_0_007dff_none;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About";

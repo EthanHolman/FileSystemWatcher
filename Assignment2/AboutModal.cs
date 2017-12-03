@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Assignment2 {
+namespace FSWatcher {
     partial class AboutModal : Form {
         public AboutModal() {
             InitializeComponent();

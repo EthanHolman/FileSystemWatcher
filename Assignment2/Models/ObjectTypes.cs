@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assignment2.Models {
+namespace FSWatcher.Models {
     public enum ObjectTypes {
         Directory,
         File

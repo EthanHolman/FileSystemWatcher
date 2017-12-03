@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Permissions;
-using Assignment2.Models;
+using FSWatcher.Models;
 
-namespace Assignment2.Services {
+namespace FSWatcher.Services {
 
     public delegate void FileEventAction(FileEvent f);
 

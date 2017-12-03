@@ -1,4 +1,4 @@
-﻿namespace Assignment2 {
+﻿namespace FSWatcher {
     partial class Usage {
         /// <summary>
         /// Required designer variable.

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Assignment2.Models;
+using FSWatcher.Models;
 using System.Data.SQLite;
 
-namespace Assignment2.Services {
+namespace FSWatcher.Services {
     class SQLiteLoggerService : ILoggerService {
 
         private SQLiteConnection sql;

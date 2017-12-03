@@ -1,5 +1,5 @@
-﻿using Assignment2.Models;
-using Assignment2.Services;
+﻿using FSWatcher.Models;
+using FSWatcher.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Assignment2 {
+namespace FSWatcher {
     public partial class MainAppWindow : Form {
 
         private WatcherService app;

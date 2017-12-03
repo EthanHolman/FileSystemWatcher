@@ -1,4 +1,4 @@
-﻿namespace Assignment2 {
+﻿namespace FSWatcher {
     partial class DatabaseQuery {
         /// <summary>
         /// Required designer variable.

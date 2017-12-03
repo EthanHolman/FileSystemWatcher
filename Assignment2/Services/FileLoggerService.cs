@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using Assignment2.Models;
+using FSWatcher.Models;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Assignment2.Services {
+namespace FSWatcher.Services {
     public class FileLoggerService : ILoggerService {
 
         private StreamWriter fout;

@@ -1,4 +1,4 @@
-﻿using Assignment2.Services;
+﻿using FSWatcher.Services;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Assignment2 {
+namespace FSWatcher {
     public partial class SettingsModal : Form {
 
         private WatcherService app;

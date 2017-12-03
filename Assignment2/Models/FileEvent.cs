@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assignment2.Models {
+namespace FSWatcher.Models {
     public class FileEvent {
         public FileEvent(string fileName, string filePath, FileEventTypes eventType, DateTime timestamp, ObjectTypes objType) {
             this.FileName = fileName;
